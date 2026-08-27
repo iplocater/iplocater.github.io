@@ -3,192 +3,176 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>IPLOACTER</title>
+<title>IPLOCATER</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="background"></div>
-<div class="cursor-glow"></div>
+<div class="bg"></div>
 
 <main>
 
 <header>
-    <div class="brand">IPLOACTER</div>
-    <p>IP ADDRESS INFORMATION SYSTEM</p>
+<h1>IPLOCATER</h1>
+<p>PUBLIC IP ADDRESS LOCATOR</p>
 </header>
 
-<section class="hero">
-
-    <div class="hero-top">
-        <span class="live-dot"></span>
-        LIVE CONNECTION
-    </div>
-
-    <h1>YOUR IP ADDRESS</h1>
-
-    <div id="ip" class="ip">
-        Detecting...
-    </div>
-
-    <button id="copyIP" class="copy">
-        COPY IP
-    </button>
-
-    <div id="status" class="status">
-        Connecting...
-    </div>
-
+<section class="search-box">
+<input
+id="ipInput"
+type="text"
+placeholder="Enter public IP address"
+autocomplete="off"
+>
+<button id="locateBtn">LOCATE IP</button>
 </section>
 
+<div id="status">READY</div>
 
-<section class="info-section">
+<section id="results">
 
-    <div class="section-title">
-        LOCATION INFORMATION
-    </div>
+<div class="ip-card">
+<span>IP ADDRESS</span>
+<div class="ip-row">
+<strong id="ip">-</strong>
+<button id="copyBtn">COPY</button>
+</div>
+</div>
 
-    <div class="grid">
+<div class="section-title">
+LOCATION INFORMATION
+</div>
 
-        <div class="card">
-            <span>COUNTRY</span>
-            <strong id="country">-</strong>
-        </div>
+<div class="grid">
 
-        <div class="card">
-            <span>REGION</span>
-            <strong id="region">-</strong>
-        </div>
+<div class="card">
+<span>COUNTRY</span>
+<b id="country">-</b>
+</div>
 
-        <div class="card">
-            <span>CITY</span>
-            <strong id="city">-</strong>
-        </div>
+<div class="card">
+<span>REGION</span>
+<b id="region">-</b>
+</div>
 
-        <div class="card">
-            <span>POSTAL CODE</span>
-            <strong id="postal">-</strong>
-        </div>
+<div class="card">
+<span>CITY</span>
+<b id="city">-</b>
+</div>
 
-        <div class="card">
-            <span>ISP</span>
-            <strong id="isp">-</strong>
-        </div>
+<div class="card">
+<span>POSTAL CODE</span>
+<b id="postal">-</b>
+</div>
 
-        <div class="card">
-            <span>ORGANIZATION</span>
-            <strong id="org">-</strong>
-        </div>
+<div class="card">
+<span>ISP</span>
+<b id="isp">-</b>
+</div>
 
-        <div class="card">
-            <span>TIMEZONE</span>
-            <strong id="timezone">-</strong>
-        </div>
+<div class="card">
+<span>ORGANIZATION</span>
+<b id="org">-</b>
+</div>
 
-        <div class="card">
-            <span>CONTINENT</span>
-            <strong id="continent">-</strong>
-        </div>
+<div class="card">
+<span>TIMEZONE</span>
+<b id="timezone">-</b>
+</div>
 
-        <div class="card">
-            <span>LATITUDE</span>
-            <strong id="latitude">-</strong>
-        </div>
+<div class="card">
+<span>LATITUDE</span>
+<b id="latitude">-</b>
+</div>
 
-        <div class="card">
-            <span>LONGITUDE</span>
-            <strong id="longitude">-</strong>
-        </div>
+<div class="card">
+<span>LONGITUDE</span>
+<b id="longitude">-</b>
+</div>
 
-        <div class="card">
-            <span>CURRENCY</span>
-            <strong id="currency">-</strong>
-        </div>
+<div class="card">
+<span>CONTINENT</span>
+<b id="continent">-</b>
+</div>
 
-        <div class="card">
-            <span>NETWORK</span>
-            <strong id="network">-</strong>
-        </div>
+<div class="card">
+<span>CURRENCY</span>
+<b id="currency">-</b>
+</div>
 
-    </div>
+<div class="card">
+<span>NETWORK</span>
+<b id="network">-</b>
+</div>
+
+</div>
+
+<div class="section-title map-title">
+APPROXIMATE LOCATION
+</div>
+
+<div class="map">
+<iframe id="map"></iframe>
+</div>
+
+<p class="note">
+IP geolocation is approximate. It cannot determine an exact house address.
+</p>
 
 </section>
-
-
-<section class="map-section">
-
-    <div class="section-title">
-        APPROXIMATE LOCATION
-    </div>
-
-    <div class="map-wrap">
-        <iframe id="map"></iframe>
-    </div>
-
-    <p class="warning">
-        IP geolocation is approximate and cannot provide an exact
-        house or GPS location.
-    </p>
-
-</section>
-
 
 <section class="connection">
 
-    <div class="section-title">
-        CONNECTION OVERVIEW
-    </div>
+<div class="section-title">
+CONNECTION OVERVIEW
+</div>
 
-    <div class="connection-grid">
+<div class="connection-grid">
 
-        <div class="small-card">
-            <span>PROTOCOL</span>
-            <strong id="protocol">-</strong>
-        </div>
+<div>
+<span>PROTOCOL</span>
+<b id="protocol">-</b>
+</div>
 
-        <div class="small-card">
-            <span>BROWSER</span>
-            <strong id="browser">-</strong>
-        </div>
+<div>
+<span>BROWSER</span>
+<b id="browser">-</b>
+</div>
 
-        <div class="small-card">
-            <span>PLATFORM</span>
-            <strong id="platform">-</strong>
-        </div>
+<div>
+<span>PLATFORM</span>
+<b id="platform">-</b>
+</div>
 
-        <div class="small-card">
-            <span>LANGUAGE</span>
-            <strong id="language">-</strong>
-        </div>
+<div>
+<span>LANGUAGE</span>
+<b id="language">-</b>
+</div>
 
-        <div class="small-card">
-            <span>SCREEN</span>
-            <strong id="screen">-</strong>
-        </div>
+<div>
+<span>SCREEN</span>
+<b id="screen">-</b>
+</div>
 
-        <div class="small-card">
-            <span>STATUS</span>
-            <strong id="online">-</strong>
-        </div>
+<div>
+<span>STATUS</span>
+<b id="online">-</b>
+</div>
 
-    </div>
+</div>
 
 </section>
 
-
 <footer>
-
-    <div class="footer-logo">IPLOACTER</div>
-
-    <p>
-        Created by
-        <a href="https://www.tiktok.com/@vynexx313"
-           target="_blank">
-           @vynexx313
-        </a>
-    </p>
-
+<strong>IPLOCATER</strong>
+<p>
+Created by
+<a href="https://www.tiktok.com/@vynexx313"
+target="_blank">
+@vynexx313
+</a>
+</p>
 </footer>
 
 </main>

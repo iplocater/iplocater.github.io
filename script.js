@@ -1,317 +1,449 @@
-const $ = id => document.getElementById(id);
+const $ = id =>
+document.getElementById(id);
 
-async function loadIP(){
 
-    $("status").innerHTML = "DETECTING PUBLIC IP...";
+/* =========================
+   IP LOOKUP
+========================= */
 
-    try{
+async function locateIP(){
 
-        const ipResponse =
-            await fetch(
-                "https://api64.ipify.org?format=json"
-            );
+const input =
+$("ipInput");
 
-        if(!ipResponse.ok)
-            throw new Error();
+const ip =
+input.value.trim();
 
-        const ipData =
-            await ipResponse.json();
+if(!ip){
 
-        const ip = ipData.ip;
+setStatus(
+"ENTER A PUBLIC IP ADDRESS"
+);
 
-        $("ip").textContent = ip;
+input.focus();
 
-        const response =
-            await fetch(
-                `https://ipapi.co/${encodeURIComponent(ip)}/json/`
-            );
+return;
+}
 
-        if(!response.ok)
-            throw new Error();
+setStatus(
+"LOOKING UP IP..."
+);
 
-        const data =
-            await response.json();
+$("locateBtn").disabled =
+true;
 
-        if(data.error)
-            throw new Error();
+try{
 
-        $("country").textContent =
-            data.country_name || "-";
+const url =
+"https://ipapi.co/" +
+encodeURIComponent(ip) +
+"/json/";
 
-        $("region").textContent =
-            data.region || "-";
+const response =
+await fetch(url);
 
-        $("city").textContent =
-            data.city || "-";
+if(!response.ok){
 
-        $("postal").textContent =
-            data.postal || "-";
+throw new Error(
+"API ERROR"
+);
 
-        $("isp").textContent =
-            data.org || "-";
+}
 
-        $("org").textContent =
-            data.org || "-";
+const data =
+await response.json();
 
-        $("timezone").textContent =
-            data.timezone || "-";
+if(
+data.error ||
+!data.ip
+){
 
-        $("continent").textContent =
-            data.continent_code || "-";
+throw new Error(
+"INVALID IP"
+);
 
-        $("latitude").textContent =
-            data.latitude ?? "-";
+}
 
-        $("longitude").textContent =
-            data.longitude ?? "-";
+fillData(data);
 
-        $("currency").textContent =
-            data.currency_name || "-";
+setStatus(
+"LOCATION DATA FOUND"
+);
 
-        $("network").textContent =
-            data.network || "-";
+$("results").scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
-        if(
-            data.latitude != null &&
-            data.longitude != null
-        ){
+}catch(error){
 
-            const lat =
-                Number(data.latitude);
+console.error(error);
 
-            const lon =
-                Number(data.longitude);
+setStatus(
+"COULD NOT LOCATE THIS IP"
+);
 
-            const d = .08;
+clearData();
 
-            const bbox =
-                `${lon-d}%2C${lat-d}%2C${lon+d}%2C${lat+d}`;
+}finally{
 
-            $("map").src =
-                "https://www.openstreetmap.org/export/embed.html" +
-                `?bbox=${bbox}` +
-                "&layer=mapnik" +
-                `&marker=${lat}%2C${lon}`;
+$("locateBtn").disabled =
+false;
 
-        }
-
-        $("status").textContent =
-            "LOCATION DATA LOADED";
-
-    }catch(error){
-
-        console.error(error);
-
-        $("ip").textContent =
-            "Unavailable";
-
-        $("status").textContent =
-            "LOOKUP FAILED";
-
-    }
+}
 
 }
 
 
-$("copyIP").addEventListener(
-    "click",
-    async () => {
+/* =========================
+   FILL INFORMATION
+========================= */
 
-        const ip =
-            $("ip").textContent;
+function fillData(data){
 
-        if(
-            !ip ||
-            ip === "Detecting..." ||
-            ip === "Unavailable"
-        )
-            return;
+$("ip").textContent =
+data.ip || "-";
 
-        try{
+$("country").textContent =
+data.country_name || "-";
 
-            await navigator.clipboard.writeText(ip);
+$("region").textContent =
+data.region || "-";
 
-            showToast("IP COPIED");
+$("city").textContent =
+data.city || "-";
 
-        }catch{
+$("postal").textContent =
+data.postal || "-";
 
-            showToast("COPY FAILED");
+$("isp").textContent =
+data.org || "-";
 
-        }
+$("org").textContent =
+data.org || "-";
 
-    }
+$("timezone").textContent =
+data.timezone || "-";
+
+$("latitude").textContent =
+data.latitude ?? "-";
+
+$("longitude").textContent =
+data.longitude ?? "-";
+
+$("continent").textContent =
+data.continent_code || "-";
+
+$("currency").textContent =
+data.currency_name || "-";
+
+$("network").textContent =
+data.network || "-";
+
+
+if(
+data.latitude != null &&
+data.longitude != null
+){
+
+createMap(
+Number(data.latitude),
+Number(data.longitude)
 );
+
+}
+
+}
+
+
+/* =========================
+   CLEAR
+========================= */
+
+function clearData(){
+
+const fields=[
+"ip",
+"country",
+"region",
+"city",
+"postal",
+"isp",
+"org",
+"timezone",
+"latitude",
+"longitude",
+"continent",
+"currency",
+"network"
+];
+
+fields.forEach(
+id =>
+$(id).textContent="-"
+);
+
+$("map").src="";
+
+}
+
+
+/* =========================
+   MAP
+========================= */
+
+function createMap(lat,lon){
+
+if(
+Number.isNaN(lat) ||
+Number.isNaN(lon)
+)
+return;
+
+const delta=.08;
+
+const bbox =
+`${lon-delta}%2C`+
+`${lat-delta}%2C`+
+`${lon+delta}%2C`+
+`${lat+delta}`;
+
+$("map").src =
+"https://www.openstreetmap.org/export/embed.html"+
+`?bbox=${bbox}`+
+"&layer=mapnik"+
+`&marker=${lat}%2C${lon}`;
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+function setStatus(text){
+
+$("status").textContent =
+text;
+
+}
+
+
+/* =========================
+   COPY
+========================= */
+
+$("copyBtn").addEventListener(
+"click",
+async function(){
+
+const value =
+$("ip").textContent;
+
+if(
+!value ||
+value === "-"
+)
+return;
+
+try{
+
+await navigator.clipboard.writeText(
+value
+);
+
+showToast(
+"IP COPIED"
+);
+
+}catch{
+
+showToast(
+"COPY FAILED"
+);
+
+}
+
+});
 
 
 function showToast(text){
 
-    const toast =
-        $("toast");
+const toast =
+$("toast");
 
-    toast.textContent =
-        text;
+toast.textContent =
+text;
 
-    toast.classList.add("show");
+toast.classList.add(
+"show"
+);
 
-    setTimeout(
-        () => {
-            toast.classList.remove("show");
-        },
-        1500
-    );
+setTimeout(
+() =>
+toast.classList.remove("show"),
+1500
+);
 
 }
 
 
-/* cursor effect */
+/* =========================
+   ENTER KEY
+========================= */
+
+$("ipInput").addEventListener(
+"keydown",
+function(event){
+
+if(
+event.key === "Enter"
+){
+
+locateIP();
+
+}
+
+});
+
+
+/* =========================
+   CLICK ANIMATION
+========================= */
 
 document.addEventListener(
-    "mousemove",
-    event => {
+"click",
+function(event){
 
-        const glow =
-            document.querySelector(
-                ".cursor-glow"
-            );
-
-        glow.style.left =
-            event.clientX + "px";
-
-        glow.style.top =
-            event.clientY + "px";
-
-    }
+const ripple =
+document.createElement(
+"span"
 );
 
+ripple.className =
+"ripple";
 
-/* click animation */
+ripple.style.left =
+event.clientX+"px";
 
-document.addEventListener(
-    "click",
-    event => {
+ripple.style.top =
+event.clientY+"px";
 
-        const ripple =
-            document.createElement(
-                "span"
-            );
+ripple.style.width="8px";
+ripple.style.height="8px";
 
-        ripple.style.position =
-            "fixed";
-
-        ripple.style.left =
-            event.clientX + "px";
-
-        ripple.style.top =
-            event.clientY + "px";
-
-        ripple.style.width =
-            "10px";
-
-        ripple.style.height =
-            "10px";
-
-        ripple.style.border =
-            "2px solid white";
-
-        ripple.style.borderRadius =
-            "50%";
-
-        ripple.style.pointerEvents =
-            "none";
-
-        ripple.style.zIndex =
-            "99999";
-
-        ripple.style.transform =
-            "translate(-50%,-50%)";
-
-        document.body.appendChild(
-            ripple
-        );
-
-        ripple.animate(
-            [
-                {
-                    width:"10px",
-                    height:"10px",
-                    opacity:1
-                },
-                {
-                    width:"100px",
-                    height:"100px",
-                    opacity:0
-                }
-            ],
-            {
-                duration:500,
-                easing:"ease-out"
-            }
-        ).onfinish =
-            () => ripple.remove();
-
-    }
+document.body.appendChild(
+ripple
 );
 
+ripple.animate(
+[
+{
+transform:
+"translate(-50%,-50%) scale(1)",
+opacity:1
+},
+{
+transform:
+"translate(-50%,-50%) scale(12)",
+opacity:0
+}
+],
+{
+duration:450,
+easing:"ease-out"
+}
+).onfinish =
+() =>
+ripple.remove();
 
-/* connection overview */
+});
 
-function loadConnection(){
 
-    $("protocol").textContent =
-        location.protocol
-        .replace(":","")
-        .toUpperCase();
+/* =========================
+   CONNECTION OVERVIEW
+========================= */
 
-    $("platform").textContent =
-        navigator.platform || "Unknown";
+function connectionInfo(){
 
-    $("language").textContent =
-        navigator.language || "Unknown";
+$("protocol").textContent =
+location.protocol
+.replace(":","")
+.toUpperCase();
 
-    $("screen").textContent =
-        `${screen.width} × ${screen.height}`;
+$("platform").textContent =
+navigator.platform ||
+"Unknown";
 
-    $("online").textContent =
-        navigator.onLine
-        ? "ONLINE"
-        : "OFFLINE";
+$("language").textContent =
+navigator.language ||
+"Unknown";
 
-    const ua =
-        navigator.userAgent;
+$("screen").textContent =
+screen.width+
+" × "+
+screen.height;
 
-    if(/Edg/i.test(ua))
-        $("browser").textContent =
-            "Microsoft Edge";
+$("online").textContent =
+navigator.onLine
+? "ONLINE"
+: "OFFLINE";
 
-    else if(/Chrome/i.test(ua))
-        $("browser").textContent =
-            "Chrome";
+const ua =
+navigator.userAgent;
 
-    else if(/Firefox/i.test(ua))
-        $("browser").textContent =
-            "Firefox";
+if(/Edg/i.test(ua)){
 
-    else if(/Safari/i.test(ua))
-        $("browser").textContent =
-            "Safari";
+$("browser").textContent =
+"Microsoft Edge";
 
-    else
-        $("browser").textContent =
-            "Unknown";
+}
+
+else if(/Chrome/i.test(ua)){
+
+$("browser").textContent =
+"Chrome";
+
+}
+
+else if(/Firefox/i.test(ua)){
+
+$("browser").textContent =
+"Firefox";
+
+}
+
+else if(/Safari/i.test(ua)){
+
+$("browser").textContent =
+"Safari";
+
+}
+
+else{
+
+$("browser").textContent =
+"Unknown";
+
+}
 
 }
 
 
 window.addEventListener(
-    "online",
-    () => $("online").textContent = "ONLINE"
+"online",
+() =>
+$("online").textContent="ONLINE"
 );
 
 window.addEventListener(
-    "offline",
-    () => $("online").textContent = "OFFLINE"
+"offline",
+() =>
+$("online").textContent="OFFLINE"
 );
 
 
-loadConnection();
-loadIP();
+/* START */
+
+connectionInfo();
+
