@@ -3,898 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#080b14">
-<meta name="description" content="IPloacter public IP geolocation and IP information tool">
-<title>IPloacter • IP Intelligence</title>
+<title>IPloacter</title>
 
 <style>
-
-/* =========================================================
-   IPLOACTER
-   Main stylesheet
-   ========================================================= */
-
-:root{
---bg:#060810;
---bg2:#0b0f1c;
---panel:rgba(16,21,36,.78);
---panel2:rgba(12,17,29,.92);
---border:rgba(255,255,255,.08);
---border2:rgba(124,92,255,.35);
---text:#f5f7ff;
---muted:#8993aa;
---purple:#805cff;
---blue:#00d9ff;
---green:#45e0a3;
---red:#ff5d79;
---shadow:0 25px 80px rgba(0,0,0,.35);
-}
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#060812;
+color:#fff;
 min-height:100vh;
-font-family:Inter,Arial,Helvetica,sans-serif;
-background:
-radial-gradient(
-circle at 10% -10%,
-rgba(128,92,255,.25),
-transparent 32%
-),
-radial-gradient(
-circle at 100% 10%,
-rgba(0,217,255,.16),
-transparent 30%
-),
-linear-gradient(
-180deg,
-#070914,
-#05070d
-);
-color:var(--text);
-overflow-x:hidden;
 }
-
-body::before{
+body:before{
 content:"";
 position:fixed;
 inset:0;
 pointer-events:none;
-background-image:
-linear-gradient(
-rgba(255,255,255,.018) 1px,
-transparent 1px
-),
-linear-gradient(
-90deg,
-rgba(255,255,255,.018) 1px,
-transparent 1px
-);
-background-size:40px 40px;
-mask-image:linear-gradient(
-to bottom,
-black,
-transparent 85%
-);
+background:
+radial-gradient(circle at 15% 10%,#673cff33,transparent 30%),
+radial-gradient(circle at 85% 20%,#00d9ff22,transparent 30%);
 }
-
-a{
-color:inherit;
-}
-
-button,
-input{
-font:inherit;
-}
-
-button{
--webkit-tap-highlight-color:transparent;
-}
-
 .container{
-width:min(1120px,92%);
+width:92%;
+max-width:1100px;
 margin:auto;
 position:relative;
-z-index:1;
 }
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
 header{
-padding:82px 0 42px;
 text-align:center;
+padding:70px 0 35px;
 }
-
-.logo-wrap{
-display:inline-flex;
-align-items:center;
-gap:14px;
-}
-
-.logo-icon{
-width:54px;
-height:54px;
-border-radius:17px;
-display:grid;
-place-items:center;
-background:
-linear-gradient(
-135deg,
-rgba(128,92,255,.25),
-rgba(0,217,255,.15)
-);
-border:1px solid rgba(255,255,255,.1);
-box-shadow:
-0 0 40px rgba(128,92,255,.16);
-}
-
-.logo-icon svg{
-width:29px;
-height:29px;
-}
-
 .logo{
-font-size:clamp(43px,8vw,76px);
-font-weight:950;
+font-size:clamp(45px,9vw,78px);
+font-weight:900;
 letter-spacing:7px;
-line-height:1;
-background:
-linear-gradient(
-90deg,
-#ffffff 0%,
-#b89dff 35%,
-#00d9ff 100%
-);
+background:linear-gradient(90deg,#fff,#a98cff,#00d9ff);
 -webkit-background-clip:text;
-background-clip:text;
 color:transparent;
 }
-
 .subtitle{
-margin-top:18px;
-font-size:16px;
-color:var(--muted);
+color:#8993a8;
+margin-top:12px;
 }
-
-.header-badges{
-display:flex;
-justify-content:center;
-gap:9px;
-flex-wrap:wrap;
-margin-top:22px;
-}
-
-.badge{
-padding:7px 12px;
-border-radius:100px;
-border:1px solid var(--border);
-background:rgba(255,255,255,.035);
-font-size:11px;
-font-weight:700;
-color:#aab3c7;
-letter-spacing:.7px;
-}
-
-/* =========================================================
-   PANELS
-   ========================================================= */
-
 .panel{
-position:relative;
-margin:24px 0;
-padding:28px;
-border-radius:25px;
-border:1px solid var(--border);
-background:var(--panel);
-backdrop-filter:blur(22px);
--webkit-backdrop-filter:blur(22px);
-box-shadow:var(--shadow);
-overflow:hidden;
+margin:22px 0;
+padding:27px;
+border:1px solid #ffffff12;
+border-radius:24px;
+background:#101526cc;
+backdrop-filter:blur(18px);
+box-shadow:0 25px 70px #0006;
 }
-
-.panel::before{
-content:"";
-position:absolute;
-width:280px;
-height:280px;
-right:-170px;
-top:-180px;
-border-radius:50%;
-background:rgba(128,92,255,.1);
-filter:blur(10px);
-pointer-events:none;
+h2{
+margin:0 0 8px;
 }
-
-.panel-header{
-position:relative;
-display:flex;
-justify-content:space-between;
-align-items:flex-start;
-gap:20px;
-margin-bottom:24px;
-}
-
-.panel-title{
-font-size:23px;
-font-weight:850;
-}
-
-.panel-description{
-margin-top:7px;
+.desc{
+color:#7f8aa1;
 font-size:13px;
-color:var(--muted);
+margin-bottom:20px;
 line-height:1.6;
 }
-
-.status-pill{
-display:inline-flex;
-align-items:center;
-gap:7px;
-padding:8px 11px;
-border-radius:100px;
-border:1px solid rgba(69,224,163,.2);
-background:rgba(69,224,163,.06);
-color:var(--green);
-font-size:10px;
-font-weight:800;
-letter-spacing:1px;
-white-space:nowrap;
-}
-
-.status-dot{
-width:7px;
-height:7px;
-border-radius:50%;
-background:currentColor;
-box-shadow:0 0 12px currentColor;
-}
-
-/* =========================================================
-   INPUTS
-   ========================================================= */
-
-.search-row{
+.row{
 display:flex;
-gap:11px;
-position:relative;
+gap:10px;
 }
-
-.input-wrap{
-position:relative;
+input{
 flex:1;
-}
-
-.input-icon{
-position:absolute;
-left:15px;
-top:50%;
-transform:translateY(-50%);
-width:18px;
-height:18px;
-color:#67728a;
-pointer-events:none;
-}
-
-.ip-input{
-width:100%;
-height:56px;
-border-radius:15px;
-border:1px solid #29334a;
-background:
-linear-gradient(
-180deg,
-rgba(4,7,14,.9),
-rgba(8,12,21,.95)
-);
+height:55px;
+padding:0 17px;
+border-radius:14px;
+border:1px solid #29334b;
+background:#070b14;
+color:#fff;
 outline:none;
-color:white;
-padding:0 16px 0 45px;
 font-size:15px;
-transition:.2s;
 }
-
-.ip-input::placeholder{
-color:#566177;
+input:focus{
+border-color:#805cff;
+box-shadow:0 0 0 4px #805cff18;
 }
-
-.ip-input:focus{
-border-color:var(--purple);
-box-shadow:
-0 0 0 4px rgba(128,92,255,.09),
-0 0 30px rgba(128,92,255,.12);
-}
-
-.primary-btn{
-height:56px;
-padding:0 25px;
+button{
 border:0;
-border-radius:15px;
-background:
-linear-gradient(
-135deg,
-#805cff,
-#00bfe8
-);
-color:white;
-font-size:13px;
+border-radius:14px;
+cursor:pointer;
 font-weight:900;
-letter-spacing:.7px;
-cursor:pointer;
-transition:.2s;
-box-shadow:
-0 8px 25px rgba(0,200,237,.12);
 }
-
-.primary-btn:hover{
-transform:translateY(-2px);
-box-shadow:
-0 12px 35px rgba(0,200,237,.22);
+.primary{
+height:55px;
+padding:0 25px;
+color:#fff;
+background:linear-gradient(135deg,#805cff,#00c8ed);
 }
-
-.primary-btn:active{
-transform:scale(.98);
+.primary:hover{
+filter:brightness(1.15);
+transform:translateY(-1px);
 }
-
-.primary-btn:disabled{
-opacity:.6;
-cursor:not-allowed;
-transform:none;
-}
-
-.secondary-btn{
-height:42px;
-padding:0 15px;
-border:1px solid var(--border);
-border-radius:12px;
-background:rgba(255,255,255,.04);
-color:#c4cbd9;
-cursor:pointer;
-font-size:12px;
-font-weight:800;
-transition:.2s;
-}
-
-.secondary-btn:hover{
-border-color:var(--border2);
-color:white;
-background:rgba(128,92,255,.08);
-}
-
-.quick-actions{
-display:flex;
-gap:9px;
-flex-wrap:wrap;
-margin-top:13px;
-}
-
-.quick-btn{
-border:1px solid var(--border);
-background:rgba(255,255,255,.025);
-color:#8490a6;
-border-radius:10px;
-padding:7px 10px;
-font-size:11px;
-cursor:pointer;
-transition:.2s;
-}
-
-.quick-btn:hover{
-color:white;
-border-color:var(--border2);
-}
-
-/* =========================================================
-   STATUS
-   ========================================================= */
-
-.status-area{
-min-height:23px;
-margin-top:17px;
+.status{
+min-height:25px;
 text-align:center;
+margin-top:16px;
+color:#8490a7;
 font-size:13px;
-color:var(--muted);
 }
-
-.status-success{
-color:var(--green);
-}
-
-.status-error{
-color:var(--red);
-}
-
-.loading{
-display:inline-block;
-width:16px;
-height:16px;
-border:2px solid rgba(255,255,255,.15);
-border-top-color:var(--blue);
-border-radius:50%;
-vertical-align:-3px;
-margin-right:8px;
-animation:spin .7s linear infinite;
-}
-
-@keyframes spin{
-to{
-transform:rotate(360deg);
-}
-}
-
-/* =========================================================
-   PUBLIC RESULT
-   ========================================================= */
-
+.success{color:#45e0a3}
+.error{color:#ff5d79}
 .results{
-margin-top:24px;
 display:grid;
-grid-template-columns:
-repeat(12,minmax(0,1fr));
-gap:14px;
+grid-template-columns:repeat(12,1fr);
+gap:13px;
+margin-top:20px;
 }
-
-.result-card{
+.card{
 grid-column:span 4;
-min-height:112px;
 padding:19px;
-border-radius:18px;
-border:1px solid var(--border);
-background:rgba(6,10,18,.67);
-transition:.2s;
+border-radius:17px;
+background:#070b14cc;
+border:1px solid #ffffff0d;
 }
-
-.result-card:hover{
-border-color:rgba(128,92,255,.28);
-transform:translateY(-2px);
-}
-
-.result-card.wide{
-grid-column:span 8;
-}
-
-.result-card.full{
-grid-column:1/-1;
-}
-
-.card-label{
+.full{grid-column:1/-1}
+.wide{grid-column:span 6}
+.label{
 font-size:10px;
-font-weight:800;
 letter-spacing:1.5px;
 text-transform:uppercase;
-color:#68748c;
-margin-bottom:10px;
+color:#69748a;
+margin-bottom:9px;
 }
-
-.card-value{
-font-size:18px;
-font-weight:850;
+.value{
+font-size:17px;
+font-weight:800;
 word-break:break-word;
 }
-
-.card-value.big{
-font-size:31px;
-letter-spacing:.5px;
+.big{
+font-size:30px;
 color:#00d9ff;
 }
-
-.card-sub{
-font-size:11px;
-color:#667188;
-margin-top:7px;
-}
-
-.copy-btn{
-margin-top:12px;
-padding:6px 9px;
-border-radius:8px;
-border:1px solid var(--border);
-background:rgba(255,255,255,.035);
-color:#8590a5;
+.copy{
+margin-top:11px;
+padding:7px 10px;
+border:1px solid #ffffff12;
+background:#ffffff08;
+color:#8994aa;
 font-size:10px;
-font-weight:800;
-cursor:pointer;
 }
-
-.copy-btn:hover{
-color:white;
-border-color:var(--border2);
-}
-
-.ip-hero{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:20px;
-}
-
-.ip-hero-left{
-min-width:0;
-}
-
-.ip-type{
-display:inline-flex;
-align-items:center;
-gap:7px;
-margin-bottom:11px;
-padding:6px 9px;
-border-radius:100px;
-font-size:9px;
-font-weight:900;
-letter-spacing:1px;
-background:rgba(0,217,255,.07);
-border:1px solid rgba(0,217,255,.16);
-color:#55ddf6;
-}
-
-.ip-type-dot{
-width:6px;
-height:6px;
-border-radius:50%;
-background:#00d9ff;
-box-shadow:0 0 10px #00d9ff;
-}
-
-.flag{
-font-size:54px;
-filter:drop-shadow(
-0 8px 20px rgba(0,0,0,.3)
-);
-}
-
-/* =========================================================
-   MAP
-   ========================================================= */
-
-.map-card{
-padding:14px;
-}
-
-.map-title{
-padding:6px 7px 14px;
-font-size:12px;
-font-weight:800;
-color:#9aa4b7;
-}
-
 .map{
-height:370px;
+height:360px;
 border-radius:15px;
 overflow:hidden;
-background:#080c15;
-border:1px solid var(--border);
+border:1px solid #ffffff0d;
 }
-
 .map iframe{
 width:100%;
 height:100%;
 border:0;
 }
-
-/* =========================================================
-   PRIVATE IP
-   ========================================================= */
-
-.private-result{
-margin-top:18px;
+.private{
 display:none;
+margin-top:18px;
 }
-
-.private-result.show{
-display:block;
-animation:fadeUp .35s ease;
-}
-
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(8px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-.private-main{
+.private.show{display:block}
+.private-box{
 display:flex;
-align-items:center;
 justify-content:space-between;
-gap:20px;
+align-items:center;
+gap:15px;
 padding:20px;
-border-radius:17px;
-background:rgba(7,11,19,.75);
-border:1px solid var(--border);
+background:#070b14cc;
+border:1px solid #ffffff0d;
+border-radius:16px;
 }
-
 .private-ip{
-font-size:29px;
+font-size:28px;
 font-weight:900;
 color:#00d9ff;
-word-break:break-word;
 }
-
 .private-type{
 padding:8px 11px;
-border-radius:100px;
+border-radius:20px;
+background:#45e0a312;
+border:1px solid #45e0a325;
+color:#45e0a3;
 font-size:10px;
 font-weight:900;
-color:var(--green);
-background:rgba(69,224,163,.07);
-border:1px solid rgba(69,224,163,.17);
-white-space:nowrap;
 }
-
-/* =========================================================
-   DETECT DEVICE
-   ========================================================= */
-
-.detect-box{
+.info-grid{
 display:grid;
-grid-template-columns:
-repeat(3,1fr);
+grid-template-columns:repeat(3,1fr);
 gap:12px;
-margin-top:17px;
 }
-
-.detect-item{
+.info{
 padding:16px;
-border-radius:15px;
-background:rgba(6,10,18,.55);
-border:1px solid var(--border);
+border-radius:14px;
+background:#070b14aa;
+border:1px solid #ffffff0d;
 }
-
-.detect-label{
+.info-label{
 font-size:10px;
+color:#68738a;
 text-transform:uppercase;
-letter-spacing:1.3px;
-color:#657087;
+letter-spacing:1px;
 margin-bottom:7px;
 }
-
-.detect-value{
+.info-value{
 font-size:14px;
 font-weight:800;
 word-break:break-word;
 }
-
-/* =========================================================
-   HISTORY
-   ========================================================= */
-
-.history{
-display:none;
-}
-
-.history.show{
-display:block;
-}
-
-.history-list{
-display:flex;
-flex-direction:column;
-gap:9px;
-margin-top:16px;
-}
-
-.history-item{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:15px;
-padding:13px 15px;
-border:1px solid var(--border);
-border-radius:13px;
-background:rgba(255,255,255,.025);
-}
-
-.history-ip{
-font-weight:800;
-font-size:13px;
-}
-
-.history-meta{
-font-size:10px;
-color:#69748a;
-margin-top:4px;
-}
-
-.history-use{
-padding:7px 10px;
-border-radius:9px;
-border:1px solid var(--border);
-background:transparent;
-color:#8993a8;
-font-size:10px;
-cursor:pointer;
-}
-
-.history-use:hover{
-color:white;
-border-color:var(--border2);
-}
-
-/* =========================================================
-   ABOUT
-   ========================================================= */
-
 .about{
 text-align:center;
-padding:60px 20px 35px;
-}
-
-.about-icon{
-width:48px;
-height:48px;
-margin:0 auto 15px;
-display:grid;
-place-items:center;
-border-radius:15px;
-background:rgba(128,92,255,.1);
-border:1px solid rgba(128,92,255,.2);
-}
-
-.about h2{
-font-size:23px;
-margin-bottom:11px;
-}
-
-.about p{
-max-width:650px;
-margin:0 auto;
-color:#737e94;
+padding:50px 20px 30px;
+color:#788399;
 font-size:13px;
 line-height:1.8;
 }
-
-.credit{
-margin-top:20px;
-font-size:13px;
-color:#8a94a9;
-}
-
-.credit a{
+.about h2{color:#fff}
+.about a{
 color:#00d9ff;
 text-decoration:none;
-font-weight:900;
+font-weight:bold;
 }
-
-.credit a:hover{
-text-decoration:underline;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
 footer{
 text-align:center;
-padding:15px 0 45px;
-color:#454f64;
+color:#444d61;
 font-size:10px;
-letter-spacing:.4px;
+padding-bottom:40px;
 }
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-.toast{
-position:fixed;
-left:50%;
-bottom:25px;
-transform:
-translate(-50%,20px);
-padding:12px 16px;
-border-radius:12px;
-background:#151b2a;
-border:1px solid var(--border);
-color:white;
-font-size:12px;
-font-weight:700;
-opacity:0;
-pointer-events:none;
-transition:.25s;
-z-index:100;
-box-shadow:0 15px 40px rgba(0,0,0,.35);
+.loader{
+display:inline-block;
+width:15px;
+height:15px;
+border:2px solid #ffffff22;
+border-top-color:#00d9ff;
+border-radius:50%;
+animation:spin .7s linear infinite;
+vertical-align:-3px;
+margin-right:7px;
 }
-
-.toast.show{
-opacity:1;
-transform:
-translate(-50%,0);
+@keyframes spin{
+to{transform:rotate(360deg)}
 }
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media(max-width:800px){
-
-.result-card{
-grid-column:span 6;
-}
-
-.result-card.wide{
-grid-column:span 6;
-}
-
-.detect-box{
-grid-template-columns:1fr;
-}
-
-}
-
-@media(max-width:620px){
-
-.container{
-width:94%;
-}
-
-header{
-padding-top:55px;
-}
-
-.logo{
-font-size:40px;
-letter-spacing:5px;
-}
-
-.logo-icon{
-width:45px;
-height:45px;
-}
-
-.panel{
-padding:19px;
-border-radius:20px;
-}
-
-.panel-header{
+@media(max-width:750px){
+.row{flex-direction:column}
+.primary{width:100%}
+.card,.wide{grid-column:1/-1}
+.info-grid{grid-template-columns:1fr}
+.private-box{
 flex-direction:column;
-}
-
-.search-row{
-flex-direction:column;
-}
-
-.primary-btn{
-height:52px;
-}
-
-.result-card,
-.result-card.wide{
-grid-column:1/-1;
-}
-
-.private-main{
-align-items:flex-start;
-flex-direction:column;
-}
-
-.ip-hero{
 align-items:flex-start;
 }
-
-.flag{
-font-size:40px;
+.map{height:280px}
+.panel{padding:20px}
 }
-
-.map{
-height:280px;
-}
-
-}
-
 </style>
 </head>
 
@@ -902,412 +262,225 @@ height:280px;
 
 <div class="container">
 
-<!-- =======================================================
-     HEADER
-     ======================================================== -->
-
 <header>
-
-<div class="logo-wrap">
-
-<div class="logo-icon">
-
-<svg viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.7">
-
-<circle cx="12" cy="12" r="8"></circle>
-<path d="M4 12h16"></path>
-<path d="M12 4c2.2 2.2 3.2 4.9 3.2 8s-1 5.8-3.2 8"></path>
-<path d="M12 4c-2.2 2.2-3.2 4.9-3.2 8s1 5.8 3.2 8"></path>
-
-</svg>
-
-</div>
-
-<div class="logo">
-IPLOACTER
-</div>
-
-</div>
-
+<div class="logo">IPLOACTER</div>
 <div class="subtitle">
-IP information and approximate geolocation dashboard
+Public IP geolocation and private IP analyzer
 </div>
-
-<div class="header-badges">
-
-<span class="badge">
-PUBLIC IP
-</span>
-
-<span class="badge">
-PRIVATE IP
-</span>
-
-<span class="badge">
-GEOLOCATION
-</span>
-
-<span class="badge">
-NETWORK INFO
-</span>
-
-</div>
-
 </header>
 
 
-<!-- =======================================================
-     PUBLIC IP LOCATOR
-     ======================================================== -->
+<!-- PUBLIC IP -->
 
 <section class="panel">
 
-<div class="panel-header">
+<h2>Public IP Address Locator</h2>
 
-<div>
-
-<div class="panel-title">
-Public IP Address Locator
+<div class="desc">
+Enter a public IP address to retrieve approximate geographic
+and network information.
 </div>
 
-<div class="panel-description">
-Enter a public IPv4 or IPv6 address to view available network
-and approximate geographic information.
-</div>
-
-</div>
-
-<div class="status-pill">
-<span class="status-dot"></span>
-ONLINE
-</div>
-
-</div>
-
-
-<div class="search-row">
-
-<div class="input-wrap">
-
-<svg
-class="input-icon"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.8">
-
-<circle cx="11" cy="11" r="7"></circle>
-<path d="m20 20-4-4"></path>
-
-</svg>
+<div class="row">
 
 <input
-id="publicInput"
-class="ip-input"
-type="text"
-placeholder="Enter public IP e.g. 8.8.8.8"
+id="publicIP"
+placeholder="Example: 8.8.8.8"
 autocomplete="off"
 spellcheck="false"
 >
 
-</div>
-
 <button
-id="lookupButton"
-class="primary-btn"
-onclick="lookupPublicIP()">
-
+id="locateBtn"
+class="primary"
+onclick="locateIP()">
 LOCATE IP
-
 </button>
 
 </div>
 
-
-<div class="quick-actions">
-
-<button
-class="quick-btn"
-onclick="loadExample('8.8.8.8')">
-8.8.8.8
-</button>
-
-<button
-class="quick-btn"
-onclick="loadExample('1.1.1.1')">
-1.1.1.1
-</button>
-
-<button
-class="quick-btn"
-onclick="loadMyPublicIP()">
-MY PUBLIC IP
-</button>
-
+<div class="status" id="status">
+Ready.
 </div>
-
-
-<div id="publicStatus"
-class="status-area">
-Ready for lookup.
-</div>
-
 
 <div
-id="publicResults"
+id="results"
 class="results"
 style="display:none">
 
+<div class="card full">
 
-<!-- IP HERO -->
-
-<div class="result-card full">
-
-<div class="ip-hero">
-
-<div class="ip-hero-left">
-
-<div class="ip-type">
-
-<span class="ip-type-dot"></span>
-
-PUBLIC IP
-
-</div>
-
-<div class="card-label">
-IP Address
-</div>
+<div class="label">IP Address</div>
 
 <div
-id="resultIP"
-class="card-value big">
+id="rIP"
+class="value big">
 -
 </div>
 
 <button
-class="copy-btn"
-onclick="copyValue('resultIP')">
-COPY IP
+class="copy"
+onclick="copyText('rIP')">
+COPY
 </button>
 
 </div>
 
-<div
-id="flag"
-class="flag">
-🌐
-</div>
 
-</div>
+<div class="card">
 
-</div>
-
-
-<!-- COUNTRY -->
-
-<div class="result-card">
-
-<div class="card-label">
-Country
-</div>
+<div class="label">Country</div>
 
 <div
-id="resultCountry"
-class="card-value">
+id="rCountry"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- REGION -->
+<div class="card">
 
-<div class="result-card">
-
-<div class="card-label">
-Region
-</div>
+<div class="label">Region</div>
 
 <div
-id="resultRegion"
-class="card-value">
+id="rRegion"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- CITY -->
+<div class="card">
 
-<div class="result-card">
-
-<div class="card-label">
-City
-</div>
+<div class="label">City</div>
 
 <div
-id="resultCity"
-class="card-value">
+id="rCity"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- POSTAL -->
+<div class="card">
 
-<div class="result-card">
-
-<div class="card-label">
-Postal Code
-</div>
+<div class="label">Postal Code</div>
 
 <div
-id="resultPostal"
-class="card-value">
+id="rPostal"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- ISP -->
+<div class="card wide">
 
-<div class="result-card wide">
-
-<div class="card-label">
-Internet Service Provider
-</div>
+<div class="label">ISP</div>
 
 <div
-id="resultISP"
-class="card-value">
+id="rISP"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- ORGANIZATION -->
+<div class="card wide">
 
-<div class="result-card wide">
-
-<div class="card-label">
-Organization
-</div>
+<div class="label">Organization</div>
 
 <div
-id="resultOrg"
-class="card-value">
+id="rOrg"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- TIMEZONE -->
+<div class="card">
 
-<div class="result-card">
-
-<div class="card-label">
-Timezone
-</div>
+<div class="label">Timezone</div>
 
 <div
-id="resultTimezone"
-class="card-value">
+id="rTimezone"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- LATITUDE -->
+<div class="card">
 
-<div class="result-card">
-
-<div class="card-label">
-Latitude
-</div>
+<div class="label">Latitude</div>
 
 <div
-id="resultLat"
-class="card-value">
+id="rLat"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- LONGITUDE -->
+<div class="card">
 
-<div class="result-card">
-
-<div class="card-label">
-Longitude
-</div>
+<div class="label">Longitude</div>
 
 <div
-id="resultLon"
-class="card-value">
+id="rLon"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- CONTINENT -->
+<div class="card">
 
-<div class="result-card">
-
-<div class="card-label">
-Continent
-</div>
+<div class="label">Continent</div>
 
 <div
-id="resultContinent"
-class="card-value">
+id="rContinent"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- CURRENCY -->
+<div class="card">
 
-<div class="result-card">
-
-<div class="card-label">
-Currency
-</div>
+<div class="label">Currency</div>
 
 <div
-id="resultCurrency"
-class="card-value">
+id="rCurrency"
+class="value">
 -
 </div>
 
 </div>
 
 
-<!-- MAP -->
+<div class="card full">
 
-<div class="result-card full map-card">
-
-<div class="map-title">
-APPROXIMATE LOCATION
+<div class="label">
+Approximate Location
 </div>
 
 <div class="map">
 
 <iframe
 id="map"
-loading="lazy"
-title="Approximate IP location map">
+loading="lazy">
 </iframe>
 
 </div>
@@ -1319,92 +492,48 @@ title="Approximate IP location map">
 </section>
 
 
-<!-- =======================================================
-     PRIVATE IP LOCATOR
-     ======================================================== -->
+<!-- PRIVATE IP -->
 
 <section class="panel">
 
-<div class="panel-header">
+<h2>Private IP Address Analyzer</h2>
 
-<div>
-
-<div class="panel-title">
-IP Address Analyzer
+<div class="desc">
+Check local IPv4 addresses and identify their network range.
+Private addresses cannot provide exact internet geolocation.
 </div>
 
-<div class="panel-description">
-Check whether an IPv4 address belongs to a private network,
-public network, loopback range, or link-local range.
-</div>
-
-</div>
-
-</div>
-
-
-<div class="search-row">
-
-<div class="input-wrap">
-
-<svg
-class="input-icon"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.8">
-
-<rect
-x="3"
-y="5"
-width="18"
-height="14"
-rx="2">
-</rect>
-
-<path d="M7 9h.01"></path>
-<path d="M11 9h.01"></path>
-<path d="M15 9h.01"></path>
-<path d="M7 13h10"></path>
-
-</svg>
+<div class="row">
 
 <input
-id="privateInput"
-class="ip-input"
-type="text"
+id="privateIP"
 placeholder="Example: 192.168.2.3"
 autocomplete="off"
 spellcheck="false"
 >
 
-</div>
-
 <button
-class="primary-btn"
-onclick="analyzePrivateIP()">
-
+class="primary"
+onclick="analyzePrivate()">
 ANALYZE
-
 </button>
 
 </div>
 
-
 <div
 id="privateResult"
-class="private-result">
+class="private">
 
-<div class="private-main">
+<div class="private-box">
 
 <div>
 
-<div class="card-label">
+<div class="label">
 Detected Address
 </div>
 
 <div
-id="privateIP"
+id="privateAddress"
 class="private-ip">
 -
 </div>
@@ -1424,83 +553,911 @@ class="private-type">
 </section>
 
 
-<!-- =======================================================
-     DEVICE INFORMATION
-     ======================================================== -->
+<!-- CONNECTION -->
 
 <section class="panel">
 
-<div class="panel-header">
+<h2>Connection Overview</h2>
 
-<div>
-
-<div class="panel-title">
-Connection Overview
+<div class="desc">
+Information visible to your browser.
 </div>
 
-<div class="panel-description">
-Basic browser-visible connection information.
-</div>
+<div class="info-grid">
 
-</div>
+<div class="info">
 
-</div>
-
-
-<div class="detect-box">
-
-<div class="detect-item">
-
-<div class="detect-label">
+<div class="info-label">
 Protocol
 </div>
 
 <div
 id="protocol"
-class="detect-value">
-Detecting...
+class="info-value">
+-
 </div>
 
 </div>
 
+<div class="info">
 
-<div class="detect-item">
-
-<div class="detect-label">
+<div class="info-label">
 Browser
 </div>
 
 <div
 id="browser"
-class="detect-value">
-Detecting...
+class="info-value">
+-
 </div>
 
 </div>
 
+<div class="info">
 
-<div class="detect-item">
-
-<div class="detect-label">
+<div class="info-label">
 Platform
 </div>
 
 <div
 id="platform"
-class="detect-value">
-Detecting...
+class="info-value">
+-
 </div>
 
 </div>
 
+<div class="info">
 
-<div class="detect-item">
-
-<div class="detect-label">
+<div class="info-label">
 Language
 </div>
 
 <div
 id="language"
-class="detect-value">
-Detectin
+class="info-value">
+-
+</div>
+
+</div>
+
+<div class="info">
+
+<div class="info-label">
+Screen
+</div>
+
+<div
+id="screen"
+class="info-value">
+-
+</div>
+
+</div>
+
+<div class="info">
+
+<div class="info-label">
+Connection
+</div>
+
+<div
+id="online"
+class="info-value">
+-
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about">
+
+<h2>About IPloacter</h2>
+
+<p>
+IPloacter provides public IP information and private IP
+network analysis for educational purposes.
+IP geolocation is approximate and does not reveal an
+exact home address or GPS position.
+</p>
+
+<p>
+Created by
+<a
+href="https://www.tiktok.com/@vynexx313"
+target="_blank"
+rel="noopener">
+@vynexx313
+</a>
+on TikTok.
+</p>
+
+</section>
+
+<footer>
+IPloacter • Network Information Tool
+</footer>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   BASIC HELPERS
+   ===================================================== */
+
+function $(id){
+return document.getElementById(id);
+}
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+function status(message,type){
+
+const el=$("status");
+
+el.className="status";
+
+if(type){
+el.classList.add(type);
+}
+
+el.innerHTML=message;
+
+}
+
+
+/* =====================================================
+   PUBLIC IP LOOKUP
+   ===================================================== */
+
+async function locateIP(){
+
+const input=$("publicIP");
+
+const button=$("locateBtn");
+
+const results=$("results");
+
+const ip=input.value.trim();
+
+
+if(!ip){
+
+status(
+"Enter an IP address first.",
+"error"
+);
+
+input.focus();
+
+return;
+
+}
+
+
+button.disabled=true;
+
+status(
+'<span class="loader"></span>Looking up IP...'
+);
+
+results.style.display="none";
+
+
+try{
+
+const response=await fetch(
+"https://ipapi.co/"+
+encodeURIComponent(ip)+
+"/json/"
+);
+
+
+if(!response.ok){
+
+throw new Error(
+"Request failed"
+);
+
+}
+
+
+const data=await response.json();
+
+
+if(
+data.error ||
+!data.ip
+){
+
+throw new Error(
+"Invalid IP"
+);
+
+}
+
+
+$("rIP").textContent=
+data.ip || "-";
+
+
+$("rCountry").textContent=
+data.country_name || "-";
+
+
+$("rRegion").textContent=
+data.region || "-";
+
+
+$("rCity").textContent=
+data.city || "-";
+
+
+$("rPostal").textContent=
+data.postal || "-";
+
+
+$("rISP").textContent=
+data.org || "-";
+
+
+$("rOrg").textContent=
+data.org || "-";
+
+
+$("rTimezone").textContent=
+data.timezone || "-";
+
+
+$("rLat").textContent=
+formatNumber(data.latitude);
+
+
+$("rLon").textContent=
+formatNumber(data.longitude);
+
+
+$("rContinent").textContent=
+data.continent_code || "-";
+
+
+$("rCurrency").textContent=
+data.currency_name || "-";
+
+
+updateMap(
+data.latitude,
+data.longitude
+);
+
+
+results.style.display="grid";
+
+
+status(
+"Lookup completed successfully.",
+"success"
+);
+
+
+results.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+
+}catch(error){
+
+console.error(error);
+
+status(
+"Could not locate this IP.",
+"error"
+);
+
+}finally{
+
+button.disabled=false;
+
+}
+
+}
+
+
+/* =====================================================
+   NUMBER FORMAT
+   ===================================================== */
+
+function formatNumber(value){
+
+if(
+value===null ||
+value===undefined ||
+value===""
+){
+
+return "-";
+
+}
+
+const number=Number(value);
+
+if(Number.isNaN(number)){
+
+return String(value);
+
+}
+
+return number.toFixed(5);
+
+}
+
+
+/* =====================================================
+   MAP
+   ===================================================== */
+
+function updateMap(lat,lon){
+
+const map=$("map");
+
+
+if(
+lat===null ||
+lon===null ||
+lat===undefined ||
+lon===undefined
+){
+
+map.removeAttribute("src");
+
+return;
+
+}
+
+
+lat=Number(lat);
+lon=Number(lon);
+
+
+if(
+Number.isNaN(lat) ||
+Number.isNaN(lon)
+){
+
+map.removeAttribute("src");
+
+return;
+
+}
+
+
+const delta=.08;
+
+
+const bbox=
+`${lon-delta}%2C`+
+`${lat-delta}%2C`+
+`${lon+delta}%2C`+
+`${lat+delta}`;
+
+
+map.src=
+"https://www.openstreetmap.org/export/embed.html"+
+`?bbox=${bbox}`+
+"&layer=mapnik"+
+`&marker=${lat}%2C${lon}`;
+
+}
+
+
+/* =====================================================
+   PRIVATE IPV4 VALIDATION
+   ===================================================== */
+
+function parseIPv4(ip){
+
+const parts=ip.split(".");
+
+
+if(parts.length!==4){
+
+return null;
+
+}
+
+
+const nums=[];
+
+
+for(
+let i=0;
+i<parts.length;
+i++
+){
+
+const part=parts[i];
+
+
+if(
+part==="" ||
+!/^\d+$/.test(part)
+){
+
+return null;
+
+}
+
+
+const num=Number(part);
+
+
+if(
+!Number.isInteger(num) ||
+num<0 ||
+num>255
+){
+
+return null;
+
+}
+
+
+nums.push(num);
+
+}
+
+
+return nums;
+
+}
+
+
+/* =====================================================
+   PRIVATE IP ANALYZER
+   ===================================================== */
+
+function analyzePrivate(){
+
+const input=$("privateIP");
+
+const result=$("privateResult");
+
+const address=$("privateAddress");
+
+const type=$("privateType");
+
+const ip=input.value.trim();
+
+
+result.classList.add("show");
+
+
+if(!ip){
+
+address.textContent="Invalid";
+
+type.textContent="INVALID";
+
+return;
+
+}
+
+
+const nums=parseIPv4(ip);
+
+
+if(!nums){
+
+address.textContent=ip;
+
+type.textContent="INVALID IPv4";
+
+return;
+
+}
+
+
+let label="PUBLIC IPv4";
+
+
+if(nums[0]===10){
+
+label=
+"PRIVATE • 10.0.0.0/8";
+
+}
+
+
+else if(
+nums[0]===172 &&
+nums[1]>=16 &&
+nums[1]<=31
+){
+
+label=
+"PRIVATE • 172.16.0.0/12";
+
+}
+
+
+else if(
+nums[0]===192 &&
+nums[1]===168
+){
+
+label=
+"PRIVATE • 192.168.0.0/16";
+
+}
+
+
+else if(
+nums[0]===127
+){
+
+label=
+"LOOPBACK • 127.0.0.0/8";
+
+}
+
+
+else if(
+nums[0]===169 &&
+nums[1]===254
+){
+
+label=
+"LINK-LOCAL • 169.254.0.0/16";
+
+}
+
+
+else if(
+nums[0]===100 &&
+nums[1]>=64 &&
+nums[1]<=127
+){
+
+label=
+"CGNAT • 100.64.0.0/10";
+
+}
+
+
+address.textContent=ip;
+
+type.textContent=label;
+
+}
+
+
+/* =====================================================
+   COPY
+   ===================================================== */
+
+async function copyText(id){
+
+const value=$(id).textContent.trim();
+
+
+if(
+!value ||
+value==="-"
+){
+
+return;
+
+}
+
+
+try{
+
+await navigator.clipboard.writeText(value);
+
+showToast(
+"Copied "+value
+);
+
+}catch{
+
+showToast(
+"Copy failed"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   TOAST
+   ===================================================== */
+
+let toastTimer;
+
+
+function showToast(message){
+
+let toast=
+document.getElementById("toast");
+
+
+if(!toast){
+
+toast=
+document.createElement("div");
+
+toast.id="toast";
+
+
+toast.style.position="fixed";
+toast.style.bottom="25px";
+toast.style.left="50%";
+toast.style.transform=
+"translateX(-50%)";
+toast.style.padding=
+"12px 17px";
+toast.style.borderRadius=
+"12px";
+toast.style.background=
+"#171d2d";
+toast.style.border=
+"1px solid #ffffff15";
+toast.style.color=
+"#fff";
+toast.style.fontSize=
+"12px";
+toast.style.fontWeight=
+"800";
+toast.style.zIndex="9999";
+toast.style.boxShadow=
+"0 15px 40px #0008";
+
+
+document.body.appendChild(
+toast
+);
+
+}
+
+
+toast.textContent=message;
+
+toast.style.opacity="1";
+
+
+clearTimeout(toastTimer);
+
+
+toastTimer=setTimeout(
+function(){
+
+toast.style.opacity="0";
+
+},
+1800
+);
+
+}
+
+
+/* =====================================================
+   BROWSER DETECTION
+   ===================================================== */
+
+function browserName(){
+
+const ua=
+navigator.userAgent;
+
+
+if(/Edg/i.test(ua)){
+
+return "Microsoft Edge";
+
+}
+
+
+if(/OPR/i.test(ua)){
+
+return "Opera";
+
+}
+
+
+if(
+/Chrome/i.test(ua) &&
+!/Edg/i.test(ua)
+){
+
+return "Chrome";
+
+}
+
+
+if(/Firefox/i.test(ua)){
+
+return "Firefox";
+
+}
+
+
+if(
+/Safari/i.test(ua) &&
+!/Chrome/i.test(ua)
+){
+
+return "Safari";
+
+}
+
+
+return "Unknown";
+
+}
+
+
+/* =====================================================
+   CONNECTION INFORMATION
+   ===================================================== */
+
+function loadConnectionInfo(){
+
+$("protocol").textContent=
+location.protocol
+.replace(":","")
+.toUpperCase();
+
+
+$("browser").textContent=
+browserName();
+
+
+$("platform").textContent=
+navigator.platform ||
+"Unknown";
+
+
+$("language").textContent=
+navigator.language ||
+"Unknown";
+
+
+$("screen").textContent=
+window.screen.width+
+" × "+
+window.screen.height;
+
+
+$("online").textContent=
+navigator.onLine
+? "Online"
+: "Offline";
+
+}
+
+
+/* =====================================================
+   ENTER KEY
+   ===================================================== */
+
+$("publicIP")
+.addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+
+locateIP();
+
+}
+
+}
+);
+
+
+$("privateIP")
+.addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+
+analyzePrivate();
+
+}
+
+}
+);
+
+
+/* =====================================================
+   ONLINE/OFFLINE EVENTS
+   ===================================================== */
+
+window.addEventListener(
+"online",
+function(){
+
+$("online").textContent=
+"Online";
+
+}
+);
+
+
+window.addEventListener(
+"offline",
+function(){
+
+$("online").textContent=
+"Offline";
+
+}
+);
+
+
+/* =====================================================
+   AUTO PUBLIC IP
+   ===================================================== */
+
+async function detectPublicIP(){
+
+try{
+
+const response=
+await fetch(
+"https://api64.ipify.org?format=json"
+);
+
+
+if(!response.ok){
+
+return;
+
+}
+
+
+const data=
+await response.json();
+
+
+if(data.ip){
+
+$("publicIP").placeholder=
+"Your public IP: "+
+data.ip;
+
+}
+
+}catch{
+
+}
+
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+loadConnectionInfo();
+
+detectPublicIP();
+
+</script>
+
+</body>
+</html>
