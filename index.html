@@ -3,1461 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>IPloacter</title>
-
-<style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#060812;
-color:#fff;
-min-height:100vh;
-}
-body:before{
-content:"";
-position:fixed;
-inset:0;
-pointer-events:none;
-background:
-radial-gradient(circle at 15% 10%,#673cff33,transparent 30%),
-radial-gradient(circle at 85% 20%,#00d9ff22,transparent 30%);
-}
-.container{
-width:92%;
-max-width:1100px;
-margin:auto;
-position:relative;
-}
-header{
-text-align:center;
-padding:70px 0 35px;
-}
-.logo{
-font-size:clamp(45px,9vw,78px);
-font-weight:900;
-letter-spacing:7px;
-background:linear-gradient(90deg,#fff,#a98cff,#00d9ff);
--webkit-background-clip:text;
-color:transparent;
-}
-.subtitle{
-color:#8993a8;
-margin-top:12px;
-}
-.panel{
-margin:22px 0;
-padding:27px;
-border:1px solid #ffffff12;
-border-radius:24px;
-background:#101526cc;
-backdrop-filter:blur(18px);
-box-shadow:0 25px 70px #0006;
-}
-h2{
-margin:0 0 8px;
-}
-.desc{
-color:#7f8aa1;
-font-size:13px;
-margin-bottom:20px;
-line-height:1.6;
-}
-.row{
-display:flex;
-gap:10px;
-}
-input{
-flex:1;
-height:55px;
-padding:0 17px;
-border-radius:14px;
-border:1px solid #29334b;
-background:#070b14;
-color:#fff;
-outline:none;
-font-size:15px;
-}
-input:focus{
-border-color:#805cff;
-box-shadow:0 0 0 4px #805cff18;
-}
-button{
-border:0;
-border-radius:14px;
-cursor:pointer;
-font-weight:900;
-}
-.primary{
-height:55px;
-padding:0 25px;
-color:#fff;
-background:linear-gradient(135deg,#805cff,#00c8ed);
-}
-.primary:hover{
-filter:brightness(1.15);
-transform:translateY(-1px);
-}
-.status{
-min-height:25px;
-text-align:center;
-margin-top:16px;
-color:#8490a7;
-font-size:13px;
-}
-.success{color:#45e0a3}
-.error{color:#ff5d79}
-.results{
-display:grid;
-grid-template-columns:repeat(12,1fr);
-gap:13px;
-margin-top:20px;
-}
-.card{
-grid-column:span 4;
-padding:19px;
-border-radius:17px;
-background:#070b14cc;
-border:1px solid #ffffff0d;
-}
-.full{grid-column:1/-1}
-.wide{grid-column:span 6}
-.label{
-font-size:10px;
-letter-spacing:1.5px;
-text-transform:uppercase;
-color:#69748a;
-margin-bottom:9px;
-}
-.value{
-font-size:17px;
-font-weight:800;
-word-break:break-word;
-}
-.big{
-font-size:30px;
-color:#00d9ff;
-}
-.copy{
-margin-top:11px;
-padding:7px 10px;
-border:1px solid #ffffff12;
-background:#ffffff08;
-color:#8994aa;
-font-size:10px;
-}
-.map{
-height:360px;
-border-radius:15px;
-overflow:hidden;
-border:1px solid #ffffff0d;
-}
-.map iframe{
-width:100%;
-height:100%;
-border:0;
-}
-.private{
-display:none;
-margin-top:18px;
-}
-.private.show{display:block}
-.private-box{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-padding:20px;
-background:#070b14cc;
-border:1px solid #ffffff0d;
-border-radius:16px;
-}
-.private-ip{
-font-size:28px;
-font-weight:900;
-color:#00d9ff;
-}
-.private-type{
-padding:8px 11px;
-border-radius:20px;
-background:#45e0a312;
-border:1px solid #45e0a325;
-color:#45e0a3;
-font-size:10px;
-font-weight:900;
-}
-.info-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-}
-.info{
-padding:16px;
-border-radius:14px;
-background:#070b14aa;
-border:1px solid #ffffff0d;
-}
-.info-label{
-font-size:10px;
-color:#68738a;
-text-transform:uppercase;
-letter-spacing:1px;
-margin-bottom:7px;
-}
-.info-value{
-font-size:14px;
-font-weight:800;
-word-break:break-word;
-}
-.about{
-text-align:center;
-padding:50px 20px 30px;
-color:#788399;
-font-size:13px;
-line-height:1.8;
-}
-.about h2{color:#fff}
-.about a{
-color:#00d9ff;
-text-decoration:none;
-font-weight:bold;
-}
-footer{
-text-align:center;
-color:#444d61;
-font-size:10px;
-padding-bottom:40px;
-}
-.loader{
-display:inline-block;
-width:15px;
-height:15px;
-border:2px solid #ffffff22;
-border-top-color:#00d9ff;
-border-radius:50%;
-animation:spin .7s linear infinite;
-vertical-align:-3px;
-margin-right:7px;
-}
-@keyframes spin{
-to{transform:rotate(360deg)}
-}
-@media(max-width:750px){
-.row{flex-direction:column}
-.primary{width:100%}
-.card,.wide{grid-column:1/-1}
-.info-grid{grid-template-columns:1fr}
-.private-box{
-flex-direction:column;
-align-items:flex-start;
-}
-.map{height:280px}
-.panel{padding:20px}
-}
-</style>
+<title>IPLOACTER</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="background"></div>
+<div class="cursor-glow"></div>
+
+<main>
 
 <header>
-<div class="logo">IPLOACTER</div>
-<div class="subtitle">
-Public IP geolocation and private IP analyzer
-</div>
+    <div class="brand">IPLOACTER</div>
+    <p>IP ADDRESS INFORMATION SYSTEM</p>
 </header>
 
+<section class="hero">
 
-<!-- PUBLIC IP -->
+    <div class="hero-top">
+        <span class="live-dot"></span>
+        LIVE CONNECTION
+    </div>
 
-<section class="panel">
+    <h1>YOUR IP ADDRESS</h1>
 
-<h2>Public IP Address Locator</h2>
+    <div id="ip" class="ip">
+        Detecting...
+    </div>
 
-<div class="desc">
-Enter a public IP address to retrieve approximate geographic
-and network information.
-</div>
+    <button id="copyIP" class="copy">
+        COPY IP
+    </button>
 
-<div class="row">
-
-<input
-id="publicIP"
-placeholder="Example: 8.8.8.8"
-autocomplete="off"
-spellcheck="false"
->
-
-<button
-id="locateBtn"
-class="primary"
-onclick="locateIP()">
-LOCATE IP
-</button>
-
-</div>
-
-<div class="status" id="status">
-Ready.
-</div>
-
-<div
-id="results"
-class="results"
-style="display:none">
-
-<div class="card full">
-
-<div class="label">IP Address</div>
-
-<div
-id="rIP"
-class="value big">
--
-</div>
-
-<button
-class="copy"
-onclick="copyText('rIP')">
-COPY
-</button>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">Country</div>
-
-<div
-id="rCountry"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">Region</div>
-
-<div
-id="rRegion"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">City</div>
-
-<div
-id="rCity"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">Postal Code</div>
-
-<div
-id="rPostal"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card wide">
-
-<div class="label">ISP</div>
-
-<div
-id="rISP"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card wide">
-
-<div class="label">Organization</div>
-
-<div
-id="rOrg"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">Timezone</div>
-
-<div
-id="rTimezone"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">Latitude</div>
-
-<div
-id="rLat"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">Longitude</div>
-
-<div
-id="rLon"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">Continent</div>
-
-<div
-id="rContinent"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="label">Currency</div>
-
-<div
-id="rCurrency"
-class="value">
--
-</div>
-
-</div>
-
-
-<div class="card full">
-
-<div class="label">
-Approximate Location
-</div>
-
-<div class="map">
-
-<iframe
-id="map"
-loading="lazy">
-</iframe>
-
-</div>
-
-</div>
-
-</div>
+    <div id="status" class="status">
+        Connecting...
+    </div>
 
 </section>
 
 
-<!-- PRIVATE IP -->
+<section class="info-section">
 
-<section class="panel">
+    <div class="section-title">
+        LOCATION INFORMATION
+    </div>
 
-<h2>Private IP Address Analyzer</h2>
+    <div class="grid">
 
-<div class="desc">
-Check local IPv4 addresses and identify their network range.
-Private addresses cannot provide exact internet geolocation.
-</div>
+        <div class="card">
+            <span>COUNTRY</span>
+            <strong id="country">-</strong>
+        </div>
 
-<div class="row">
+        <div class="card">
+            <span>REGION</span>
+            <strong id="region">-</strong>
+        </div>
 
-<input
-id="privateIP"
-placeholder="Example: 192.168.2.3"
-autocomplete="off"
-spellcheck="false"
->
+        <div class="card">
+            <span>CITY</span>
+            <strong id="city">-</strong>
+        </div>
 
-<button
-class="primary"
-onclick="analyzePrivate()">
-ANALYZE
-</button>
+        <div class="card">
+            <span>POSTAL CODE</span>
+            <strong id="postal">-</strong>
+        </div>
 
-</div>
+        <div class="card">
+            <span>ISP</span>
+            <strong id="isp">-</strong>
+        </div>
 
-<div
-id="privateResult"
-class="private">
+        <div class="card">
+            <span>ORGANIZATION</span>
+            <strong id="org">-</strong>
+        </div>
 
-<div class="private-box">
+        <div class="card">
+            <span>TIMEZONE</span>
+            <strong id="timezone">-</strong>
+        </div>
 
-<div>
+        <div class="card">
+            <span>CONTINENT</span>
+            <strong id="continent">-</strong>
+        </div>
 
-<div class="label">
-Detected Address
-</div>
+        <div class="card">
+            <span>LATITUDE</span>
+            <strong id="latitude">-</strong>
+        </div>
 
-<div
-id="privateAddress"
-class="private-ip">
--
-</div>
+        <div class="card">
+            <span>LONGITUDE</span>
+            <strong id="longitude">-</strong>
+        </div>
 
-</div>
+        <div class="card">
+            <span>CURRENCY</span>
+            <strong id="currency">-</strong>
+        </div>
 
-<div
-id="privateType"
-class="private-type">
--
-</div>
+        <div class="card">
+            <span>NETWORK</span>
+            <strong id="network">-</strong>
+        </div>
 
-</div>
-
-</div>
-
-</section>
-
-
-<!-- CONNECTION -->
-
-<section class="panel">
-
-<h2>Connection Overview</h2>
-
-<div class="desc">
-Information visible to your browser.
-</div>
-
-<div class="info-grid">
-
-<div class="info">
-
-<div class="info-label">
-Protocol
-</div>
-
-<div
-id="protocol"
-class="info-value">
--
-</div>
-
-</div>
-
-<div class="info">
-
-<div class="info-label">
-Browser
-</div>
-
-<div
-id="browser"
-class="info-value">
--
-</div>
-
-</div>
-
-<div class="info">
-
-<div class="info-label">
-Platform
-</div>
-
-<div
-id="platform"
-class="info-value">
--
-</div>
-
-</div>
-
-<div class="info">
-
-<div class="info-label">
-Language
-</div>
-
-<div
-id="language"
-class="info-value">
--
-</div>
-
-</div>
-
-<div class="info">
-
-<div class="info-label">
-Screen
-</div>
-
-<div
-id="screen"
-class="info-value">
--
-</div>
-
-</div>
-
-<div class="info">
-
-<div class="info-label">
-Connection
-</div>
-
-<div
-id="online"
-class="info-value">
--
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
 
-<!-- ABOUT -->
+<section class="map-section">
 
-<section class="about">
+    <div class="section-title">
+        APPROXIMATE LOCATION
+    </div>
 
-<h2>About IPloacter</h2>
+    <div class="map-wrap">
+        <iframe id="map"></iframe>
+    </div>
 
-<p>
-IPloacter provides public IP information and private IP
-network analysis for educational purposes.
-IP geolocation is approximate and does not reveal an
-exact home address or GPS position.
-</p>
-
-<p>
-Created by
-<a
-href="https://www.tiktok.com/@vynexx313"
-target="_blank"
-rel="noopener">
-@vynexx313
-</a>
-on TikTok.
-</p>
+    <p class="warning">
+        IP geolocation is approximate and cannot provide an exact
+        house or GPS location.
+    </p>
 
 </section>
+
+
+<section class="connection">
+
+    <div class="section-title">
+        CONNECTION OVERVIEW
+    </div>
+
+    <div class="connection-grid">
+
+        <div class="small-card">
+            <span>PROTOCOL</span>
+            <strong id="protocol">-</strong>
+        </div>
+
+        <div class="small-card">
+            <span>BROWSER</span>
+            <strong id="browser">-</strong>
+        </div>
+
+        <div class="small-card">
+            <span>PLATFORM</span>
+            <strong id="platform">-</strong>
+        </div>
+
+        <div class="small-card">
+            <span>LANGUAGE</span>
+            <strong id="language">-</strong>
+        </div>
+
+        <div class="small-card">
+            <span>SCREEN</span>
+            <strong id="screen">-</strong>
+        </div>
+
+        <div class="small-card">
+            <span>STATUS</span>
+            <strong id="online">-</strong>
+        </div>
+
+    </div>
+
+</section>
+
 
 <footer>
-IPloacter • Network Information Tool
+
+    <div class="footer-logo">IPLOACTER</div>
+
+    <p>
+        Created by
+        <a href="https://www.tiktok.com/@vynexx313"
+           target="_blank">
+           @vynexx313
+        </a>
+    </p>
+
 </footer>
 
-</div>
+</main>
 
+<div id="toast"></div>
 
-<script>
-
-/* =====================================================
-   BASIC HELPERS
-   ===================================================== */
-
-function $(id){
-return document.getElementById(id);
-}
-
-
-/* =====================================================
-   STATUS
-   ===================================================== */
-
-function status(message,type){
-
-const el=$("status");
-
-el.className="status";
-
-if(type){
-el.classList.add(type);
-}
-
-el.innerHTML=message;
-
-}
-
-
-/* =====================================================
-   PUBLIC IP LOOKUP
-   ===================================================== */
-
-async function locateIP(){
-
-const input=$("publicIP");
-
-const button=$("locateBtn");
-
-const results=$("results");
-
-const ip=input.value.trim();
-
-
-if(!ip){
-
-status(
-"Enter an IP address first.",
-"error"
-);
-
-input.focus();
-
-return;
-
-}
-
-
-button.disabled=true;
-
-status(
-'<span class="loader"></span>Looking up IP...'
-);
-
-results.style.display="none";
-
-
-try{
-
-const response=await fetch(
-"https://ipapi.co/"+
-encodeURIComponent(ip)+
-"/json/"
-);
-
-
-if(!response.ok){
-
-throw new Error(
-"Request failed"
-);
-
-}
-
-
-const data=await response.json();
-
-
-if(
-data.error ||
-!data.ip
-){
-
-throw new Error(
-"Invalid IP"
-);
-
-}
-
-
-$("rIP").textContent=
-data.ip || "-";
-
-
-$("rCountry").textContent=
-data.country_name || "-";
-
-
-$("rRegion").textContent=
-data.region || "-";
-
-
-$("rCity").textContent=
-data.city || "-";
-
-
-$("rPostal").textContent=
-data.postal || "-";
-
-
-$("rISP").textContent=
-data.org || "-";
-
-
-$("rOrg").textContent=
-data.org || "-";
-
-
-$("rTimezone").textContent=
-data.timezone || "-";
-
-
-$("rLat").textContent=
-formatNumber(data.latitude);
-
-
-$("rLon").textContent=
-formatNumber(data.longitude);
-
-
-$("rContinent").textContent=
-data.continent_code || "-";
-
-
-$("rCurrency").textContent=
-data.currency_name || "-";
-
-
-updateMap(
-data.latitude,
-data.longitude
-);
-
-
-results.style.display="grid";
-
-
-status(
-"Lookup completed successfully.",
-"success"
-);
-
-
-results.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-
-}catch(error){
-
-console.error(error);
-
-status(
-"Could not locate this IP.",
-"error"
-);
-
-}finally{
-
-button.disabled=false;
-
-}
-
-}
-
-
-/* =====================================================
-   NUMBER FORMAT
-   ===================================================== */
-
-function formatNumber(value){
-
-if(
-value===null ||
-value===undefined ||
-value===""
-){
-
-return "-";
-
-}
-
-const number=Number(value);
-
-if(Number.isNaN(number)){
-
-return String(value);
-
-}
-
-return number.toFixed(5);
-
-}
-
-
-/* =====================================================
-   MAP
-   ===================================================== */
-
-function updateMap(lat,lon){
-
-const map=$("map");
-
-
-if(
-lat===null ||
-lon===null ||
-lat===undefined ||
-lon===undefined
-){
-
-map.removeAttribute("src");
-
-return;
-
-}
-
-
-lat=Number(lat);
-lon=Number(lon);
-
-
-if(
-Number.isNaN(lat) ||
-Number.isNaN(lon)
-){
-
-map.removeAttribute("src");
-
-return;
-
-}
-
-
-const delta=.08;
-
-
-const bbox=
-`${lon-delta}%2C`+
-`${lat-delta}%2C`+
-`${lon+delta}%2C`+
-`${lat+delta}`;
-
-
-map.src=
-"https://www.openstreetmap.org/export/embed.html"+
-`?bbox=${bbox}`+
-"&layer=mapnik"+
-`&marker=${lat}%2C${lon}`;
-
-}
-
-
-/* =====================================================
-   PRIVATE IPV4 VALIDATION
-   ===================================================== */
-
-function parseIPv4(ip){
-
-const parts=ip.split(".");
-
-
-if(parts.length!==4){
-
-return null;
-
-}
-
-
-const nums=[];
-
-
-for(
-let i=0;
-i<parts.length;
-i++
-){
-
-const part=parts[i];
-
-
-if(
-part==="" ||
-!/^\d+$/.test(part)
-){
-
-return null;
-
-}
-
-
-const num=Number(part);
-
-
-if(
-!Number.isInteger(num) ||
-num<0 ||
-num>255
-){
-
-return null;
-
-}
-
-
-nums.push(num);
-
-}
-
-
-return nums;
-
-}
-
-
-/* =====================================================
-   PRIVATE IP ANALYZER
-   ===================================================== */
-
-function analyzePrivate(){
-
-const input=$("privateIP");
-
-const result=$("privateResult");
-
-const address=$("privateAddress");
-
-const type=$("privateType");
-
-const ip=input.value.trim();
-
-
-result.classList.add("show");
-
-
-if(!ip){
-
-address.textContent="Invalid";
-
-type.textContent="INVALID";
-
-return;
-
-}
-
-
-const nums=parseIPv4(ip);
-
-
-if(!nums){
-
-address.textContent=ip;
-
-type.textContent="INVALID IPv4";
-
-return;
-
-}
-
-
-let label="PUBLIC IPv4";
-
-
-if(nums[0]===10){
-
-label=
-"PRIVATE • 10.0.0.0/8";
-
-}
-
-
-else if(
-nums[0]===172 &&
-nums[1]>=16 &&
-nums[1]<=31
-){
-
-label=
-"PRIVATE • 172.16.0.0/12";
-
-}
-
-
-else if(
-nums[0]===192 &&
-nums[1]===168
-){
-
-label=
-"PRIVATE • 192.168.0.0/16";
-
-}
-
-
-else if(
-nums[0]===127
-){
-
-label=
-"LOOPBACK • 127.0.0.0/8";
-
-}
-
-
-else if(
-nums[0]===169 &&
-nums[1]===254
-){
-
-label=
-"LINK-LOCAL • 169.254.0.0/16";
-
-}
-
-
-else if(
-nums[0]===100 &&
-nums[1]>=64 &&
-nums[1]<=127
-){
-
-label=
-"CGNAT • 100.64.0.0/10";
-
-}
-
-
-address.textContent=ip;
-
-type.textContent=label;
-
-}
-
-
-/* =====================================================
-   COPY
-   ===================================================== */
-
-async function copyText(id){
-
-const value=$(id).textContent.trim();
-
-
-if(
-!value ||
-value==="-"
-){
-
-return;
-
-}
-
-
-try{
-
-await navigator.clipboard.writeText(value);
-
-showToast(
-"Copied "+value
-);
-
-}catch{
-
-showToast(
-"Copy failed"
-);
-
-}
-
-}
-
-
-/* =====================================================
-   TOAST
-   ===================================================== */
-
-let toastTimer;
-
-
-function showToast(message){
-
-let toast=
-document.getElementById("toast");
-
-
-if(!toast){
-
-toast=
-document.createElement("div");
-
-toast.id="toast";
-
-
-toast.style.position="fixed";
-toast.style.bottom="25px";
-toast.style.left="50%";
-toast.style.transform=
-"translateX(-50%)";
-toast.style.padding=
-"12px 17px";
-toast.style.borderRadius=
-"12px";
-toast.style.background=
-"#171d2d";
-toast.style.border=
-"1px solid #ffffff15";
-toast.style.color=
-"#fff";
-toast.style.fontSize=
-"12px";
-toast.style.fontWeight=
-"800";
-toast.style.zIndex="9999";
-toast.style.boxShadow=
-"0 15px 40px #0008";
-
-
-document.body.appendChild(
-toast
-);
-
-}
-
-
-toast.textContent=message;
-
-toast.style.opacity="1";
-
-
-clearTimeout(toastTimer);
-
-
-toastTimer=setTimeout(
-function(){
-
-toast.style.opacity="0";
-
-},
-1800
-);
-
-}
-
-
-/* =====================================================
-   BROWSER DETECTION
-   ===================================================== */
-
-function browserName(){
-
-const ua=
-navigator.userAgent;
-
-
-if(/Edg/i.test(ua)){
-
-return "Microsoft Edge";
-
-}
-
-
-if(/OPR/i.test(ua)){
-
-return "Opera";
-
-}
-
-
-if(
-/Chrome/i.test(ua) &&
-!/Edg/i.test(ua)
-){
-
-return "Chrome";
-
-}
-
-
-if(/Firefox/i.test(ua)){
-
-return "Firefox";
-
-}
-
-
-if(
-/Safari/i.test(ua) &&
-!/Chrome/i.test(ua)
-){
-
-return "Safari";
-
-}
-
-
-return "Unknown";
-
-}
-
-
-/* =====================================================
-   CONNECTION INFORMATION
-   ===================================================== */
-
-function loadConnectionInfo(){
-
-$("protocol").textContent=
-location.protocol
-.replace(":","")
-.toUpperCase();
-
-
-$("browser").textContent=
-browserName();
-
-
-$("platform").textContent=
-navigator.platform ||
-"Unknown";
-
-
-$("language").textContent=
-navigator.language ||
-"Unknown";
-
-
-$("screen").textContent=
-window.screen.width+
-" × "+
-window.screen.height;
-
-
-$("online").textContent=
-navigator.onLine
-? "Online"
-: "Offline";
-
-}
-
-
-/* =====================================================
-   ENTER KEY
-   ===================================================== */
-
-$("publicIP")
-.addEventListener(
-"keydown",
-function(event){
-
-if(event.key==="Enter"){
-
-locateIP();
-
-}
-
-}
-);
-
-
-$("privateIP")
-.addEventListener(
-"keydown",
-function(event){
-
-if(event.key==="Enter"){
-
-analyzePrivate();
-
-}
-
-}
-);
-
-
-/* =====================================================
-   ONLINE/OFFLINE EVENTS
-   ===================================================== */
-
-window.addEventListener(
-"online",
-function(){
-
-$("online").textContent=
-"Online";
-
-}
-);
-
-
-window.addEventListener(
-"offline",
-function(){
-
-$("online").textContent=
-"Offline";
-
-}
-);
-
-
-/* =====================================================
-   AUTO PUBLIC IP
-   ===================================================== */
-
-async function detectPublicIP(){
-
-try{
-
-const response=
-await fetch(
-"https://api64.ipify.org?format=json"
-);
-
-
-if(!response.ok){
-
-return;
-
-}
-
-
-const data=
-await response.json();
-
-
-if(data.ip){
-
-$("publicIP").placeholder=
-"Your public IP: "+
-data.ip;
-
-}
-
-}catch{
-
-}
-
-}
-
-
-/* =====================================================
-   START
-   ===================================================== */
-
-loadConnectionInfo();
-
-detectPublicIP();
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
