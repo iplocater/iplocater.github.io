@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>IPlocater</title>
+<title>IPloacter</title>
 
 <style>
 *{
@@ -13,64 +12,81 @@ margin:0;
 padding:0;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
-min-height:100vh;
-font-family:Arial,sans-serif;
+font-family:Arial,Helvetica,sans-serif;
 background:
-radial-gradient(circle at top,#18233d 0%,#090b12 45%,#05060a 100%);
+radial-gradient(circle at 20% 0%,#20265c 0%,transparent 35%),
+radial-gradient(circle at 90% 20%,#123f52 0%,transparent 30%),
+#070911;
 color:#fff;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
-overflow-x:hidden;
+min-height:100vh;
 }
 
 .container{
-width:100%;
-max-width:850px;
+width:92%;
+max-width:1000px;
+margin:auto;
 }
 
-.header{
+header{
 text-align:center;
-margin-bottom:30px;
+padding:80px 15px 45px;
 }
 
 .logo{
-font-size:48px;
+font-size:clamp(42px,8vw,72px);
 font-weight:900;
-letter-spacing:5px;
-background:linear-gradient(90deg,#7c5cff,#00d9ff);
+letter-spacing:6px;
+background:linear-gradient(90deg,#8b5cff,#00d9ff);
 -webkit-background-clip:text;
 color:transparent;
 }
 
-.subtitle{
-margin-top:8px;
+.tagline{
 color:#8993aa;
-font-size:15px;
+margin-top:12px;
+font-size:16px;
 }
 
-.search-box{
-background:rgba(20,24,38,.75);
-border:1px solid rgba(124,92,255,.25);
-backdrop-filter:blur(18px);
-padding:18px;
-border-radius:20px;
+.section{
+margin:30px 0;
+padding:25px;
+border:1px solid rgba(255,255,255,.08);
+background:rgba(16,20,34,.72);
+border-radius:24px;
+backdrop-filter:blur(20px);
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.section h2{
+font-size:24px;
+margin-bottom:7px;
+}
+
+.section-desc{
+color:#78839b;
+font-size:14px;
+margin-bottom:20px;
+}
+
+.input-row{
 display:flex;
-gap:12px;
-box-shadow:0 15px 50px rgba(0,0,0,.35);
+gap:10px;
 }
 
 input{
 flex:1;
-background:#0c101b;
-border:1px solid #252d42;
-outline:none;
+background:#080c15;
+border:1px solid #29324a;
 border-radius:13px;
-padding:15px;
+padding:16px;
 color:white;
 font-size:16px;
+outline:none;
 }
 
 input:focus{
@@ -79,20 +95,20 @@ box-shadow:0 0 20px rgba(124,92,255,.2);
 }
 
 button{
-border:none;
+border:0;
 border-radius:13px;
 padding:0 25px;
-font-size:16px;
+font-size:15px;
 font-weight:bold;
 color:white;
-background:linear-gradient(135deg,#7c5cff,#00bfe8);
 cursor:pointer;
+background:linear-gradient(135deg,#805cff,#00c8ed);
 transition:.2s;
 }
 
 button:hover{
 transform:translateY(-2px);
-box-shadow:0 8px 25px rgba(0,210,255,.25);
+box-shadow:0 10px 30px rgba(0,200,237,.2);
 }
 
 button:active{
@@ -102,7 +118,7 @@ transform:scale(.97);
 .status{
 text-align:center;
 margin:18px 0;
-color:#78839b;
+color:#8993aa;
 min-height:20px;
 }
 
@@ -114,57 +130,67 @@ margin-top:20px;
 }
 
 .card{
-background:rgba(18,22,35,.75);
+background:rgba(9,13,24,.75);
 border:1px solid rgba(255,255,255,.07);
 border-radius:17px;
 padding:20px;
-backdrop-filter:blur(15px);
-transition:.2s;
 }
 
-.card:hover{
-border-color:rgba(124,92,255,.4);
-transform:translateY(-2px);
+.full{
+grid-column:1/-1;
 }
 
-.card-title{
-font-size:12px;
-text-transform:uppercase;
-letter-spacing:1.5px;
+.label{
+font-size:11px;
 color:#78839b;
+text-transform:uppercase;
+letter-spacing:1.6px;
 margin-bottom:8px;
 }
 
-.card-value{
+.value{
 font-size:18px;
 font-weight:bold;
 word-break:break-word;
 }
 
-.hero{
-grid-column:1/-1;
+.big{
+font-size:30px;
+}
+
+.hidden{
+display:none;
+}
+
+.local-box{
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:25px;
+gap:20px;
 }
 
-.ip{
-font-size:28px;
+.local-ip{
+font-size:32px;
 font-weight:900;
+color:#00d9ff;
+word-break:break-word;
 }
 
-.flag{
-font-size:45px;
+.badge{
+padding:8px 12px;
+border-radius:20px;
+background:#173b3d;
+color:#5df2c2;
+font-size:12px;
+font-weight:bold;
+white-space:nowrap;
 }
 
 .map{
-margin-top:15px;
-height:300px;
-border-radius:18px;
+height:330px;
+margin-top:12px;
+border-radius:16px;
 overflow:hidden;
-background:#0b0e16;
-border:1px solid rgba(255,255,255,.08);
 }
 
 .map iframe{
@@ -173,44 +199,52 @@ height:100%;
 border:0;
 }
 
-.hidden{
-display:none;
+.about{
+text-align:center;
+margin:70px 0 30px;
+padding:30px;
 }
 
-.error{
-color:#ff6b81;
+.about h2{
+margin-bottom:12px;
 }
 
-.loading{
-display:inline-block;
-width:18px;
-height:18px;
-border:3px solid #333b50;
-border-top-color:#00d9ff;
-border-radius:50%;
-animation:spin .7s linear infinite;
-vertical-align:middle;
-margin-right:7px;
+.about p{
+color:#78839b;
+line-height:1.7;
 }
 
-@keyframes spin{
-to{transform:rotate(360deg)}
+.credit{
+margin-top:18px;
+font-size:14px;
+color:#9ba5ba;
+}
+
+.credit a{
+color:#00d9ff;
+text-decoration:none;
+font-weight:bold;
 }
 
 .footer{
 text-align:center;
-margin-top:25px;
-color:#555e73;
+color:#4e586d;
 font-size:12px;
+padding:20px 0 40px;
 }
 
 @media(max-width:650px){
 
-.logo{
-font-size:35px;
+.container{
+width:94%;
 }
 
-.search-box{
+.section{
+padding:18px;
+border-radius:20px;
+}
+
+.input-row{
 flex-direction:column;
 }
 
@@ -222,12 +256,17 @@ height:50px;
 grid-template-columns:1fr;
 }
 
-.hero{
+.full{
 grid-column:auto;
 }
 
-.ip{
-font-size:22px;
+.local-box{
+align-items:flex-start;
+flex-direction:column;
+}
+
+.local-ip{
+font-size:25px;
 }
 
 }
@@ -238,24 +277,63 @@ font-size:22px;
 
 <div class="container">
 
-<div class="header">
-<div class="logo">IPLOCATER</div>
-<div class="subtitle">
-Public IP geolocation dashboard
+<header>
+<div class="logo">IPLOACTER</div>
+<div class="tagline">
+Local IP + Public IP Address Geolocation
+</div>
+</header>
+
+
+<!-- LOCAL IP -->
+
+<section class="section">
+
+<h2>Local IP Locator</h2>
+
+<p class="section-desc">
+Detect the private IP address of this device on its network.
+</p>
+
+<div class="local-box">
+
+<div>
+<div class="label">Local IP Address</div>
+<div id="localIP" class="local-ip">
+Detecting...
 </div>
 </div>
 
-<div class="search-box">
+<div class="badge">
+PRIVATE NETWORK
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PUBLIC IP -->
+
+<section class="section">
+
+<h2>IP Address Locator</h2>
+
+<p class="section-desc">
+Enter a public IP address to view approximate geolocation data.
+</p>
+
+<div class="input-row">
 
 <input
 id="ipInput"
 type="text"
-placeholder="Enter public IP address..."
+placeholder="Example: 8.8.8.8"
 autocomplete="off"
 >
 
 <button onclick="lookupIP()">
-LOCATE
+LOCATE IP
 </button>
 
 </div>
@@ -264,77 +342,212 @@ LOCATE
 
 <div id="results" class="results hidden">
 
-<div class="card hero">
-<div>
-<div class="card-title">IP Address</div>
-<div id="ip" class="ip">-</div>
+<div class="card full">
+
+<div class="label">IP Address</div>
+
+<div id="rIP" class="value big">
+-
 </div>
 
-<div id="flag" class="flag">🌐</div>
-</div>
-
-<div class="card">
-<div class="card-title">Country</div>
-<div id="country" class="card-value">-</div>
 </div>
 
 <div class="card">
-<div class="card-title">Region</div>
-<div id="region" class="card-value">-</div>
+
+<div class="label">Country</div>
+
+<div id="country" class="value">-</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">City</div>
-<div id="city" class="card-value">-</div>
+
+<div class="label">Region</div>
+
+<div id="region" class="value">-</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">Postal Code</div>
-<div id="postal" class="card-value">-</div>
+
+<div class="label">City</div>
+
+<div id="city" class="value">-</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">ISP</div>
-<div id="isp" class="card-value">-</div>
+
+<div class="label">Postal Code</div>
+
+<div id="postal" class="value">-</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">Timezone</div>
-<div id="timezone" class="card-value">-</div>
+
+<div class="label">ISP</div>
+
+<div id="isp" class="value">-</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">Latitude</div>
-<div id="lat" class="card-value">-</div>
+
+<div class="label">Timezone</div>
+
+<div id="timezone" class="value">-</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">Longitude</div>
-<div id="lon" class="card-value">-</div>
+
+<div class="label">Latitude</div>
+
+<div id="lat" class="value">-</div>
+
 </div>
 
-<div class="card" style="grid-column:1/-1">
+<div class="card">
 
-<div class="card-title">Location Map</div>
+<div class="label">Longitude</div>
+
+<div id="lon" class="value">-</div>
+
+</div>
+
+<div class="card full">
+
+<div class="label">Approximate Location</div>
 
 <div class="map">
+
 <iframe
 id="map"
 loading="lazy">
 </iframe>
-</div>
 
 </div>
 
 </div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about">
+
+<h2>About IPloacter</h2>
+
+<p>
+IPloacter is a simple IP information tool for
+learning and network research.
+</p>
+
+<p>
+IP geolocation is approximate and does not reveal
+an exact home address.
+</p>
+
+<div class="credit">
+Created by
+<a href="https://www.tiktok.com/@vynexx313"
+target="_blank">
+@vynexx313
+</a>
+on TikTok
+</div>
+
+</section>
+
 
 <div class="footer">
-IPlocater • Public IP information only
+IPloacter • Educational IP information tool
 </div>
 
 </div>
+
 
 <script>
+
+/* LOCAL IP */
+
+async function getLocalIP(){
+
+const localIP =
+document.getElementById("localIP");
+
+try{
+
+const pc =
+new RTCPeerConnection({
+iceServers:[]
+});
+
+pc.createDataChannel("");
+
+pc.onicecandidate = function(event){
+
+if(!event.candidate){
+
+pc.close();
+return;
+
+}
+
+const candidate =
+event.candidate.candidate;
+
+const match =
+candidate.match(
+/([0-9]{1,3}(?:\.[0-9]{1,3}){3})/
+);
+
+if(match){
+
+const ip=match[1];
+
+if(
+ip.startsWith("192.168.") ||
+ip.startsWith("10.") ||
+ip.startsWith("172.")
+){
+
+localIP.textContent=ip;
+pc.close();
+
+}
+
+}
+
+};
+
+pc.createOffer()
+.then(offer=>pc.setLocalDescription(offer));
+
+setTimeout(()=>{
+
+if(localIP.textContent==="Detecting..."){
+localIP.textContent=
+"Browser blocked local IP";
+}
+
+},3000);
+
+}catch{
+
+localIP.textContent=
+"Unavailable";
+
+}
+
+}
+
+
+/* PUBLIC IP LOOKUP */
 
 async function lookupIP(){
 
@@ -352,16 +565,15 @@ document.getElementById("results");
 
 if(!ip){
 
-status.innerHTML =
-'<span class="error">Enter an IP address first.</span>';
-
-results.classList.add("hidden");
+status.textContent=
+"Enter a public IP address.";
 
 return;
+
 }
 
-status.innerHTML =
-'<span class="loading"></span>Locating IP...';
+status.textContent=
+"Looking up IP...";
 
 results.classList.add("hidden");
 
@@ -369,8 +581,7 @@ try{
 
 const response =
 await fetch(
-"https://ipwho.is/" +
-encodeURIComponent(ip)
+"https://ipwho.is/"+encodeURIComponent(ip)
 );
 
 const data =
@@ -384,71 +595,89 @@ data.message || "Invalid IP"
 
 }
 
-document.getElementById("ip").textContent =
-data.ip || "-";
+document.getElementById("rIP")
+.textContent=data.ip || "-";
 
-document.getElementById("country").textContent =
-data.country || "-";
+document.getElementById("country")
+.textContent=data.country || "-";
 
-document.getElementById("region").textContent =
-data.region || "-";
+document.getElementById("region")
+.textContent=data.region || "-";
 
-document.getElementById("city").textContent =
-data.city || "-";
+document.getElementById("city")
+.textContent=data.city || "-";
 
-document.getElementById("postal").textContent =
-data.postal || "-";
+document.getElementById("postal")
+.textContent=data.postal || "-";
 
-document.getElementById("isp").textContent =
+document.getElementById("isp")
+.textContent=
 data.connection?.isp || "-";
 
-document.getElementById("timezone").textContent =
+document.getElementById("timezone")
+.textContent=
 data.timezone?.id || "-";
 
-document.getElementById("lat").textContent =
+document.getElementById("lat")
+.textContent=
 data.latitude ?? "-";
 
-document.getElementById("lon").textContent =
+document.getElementById("lon")
+.textContent=
 data.longitude ?? "-";
 
-document.getElementById("flag").textContent =
-data.flag?.emoji || "🌐";
 
-const lat = data.latitude;
-const lon = data.longitude;
+if(
+data.latitude !== null &&
+data.longitude !== null
+){
 
-if(lat && lon){
+const lat=data.latitude;
+const lon=data.longitude;
 
-document.getElementById("map").src =
-`https://www.openstreetmap.org/export/embed.html?bbox=${lon-0.08}%2C${lat-0.05}%2C${lon+0.08}%2C${lat+0.05}&layer=mapnik&marker=${lat}%2C${lon}`;
+document.getElementById("map").src=
+`https://www.openstreetmap.org/export/embed.html?bbox=${lon-.08}%2C${lat-.05}%2C${lon+.08}%2C${lat+.05}&layer=mapnik&marker=${lat}%2C${lon}`;
 
 }
 
 results.classList.remove("hidden");
 
-status.innerHTML =
-"Location found.";
+status.textContent=
+"Lookup complete.";
+
+results.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
 }catch(error){
 
-status.innerHTML =
-'<span class="error">Could not locate that IP.</span>';
-
 console.error(error);
 
+status.textContent=
+"Could not locate this IP.";
+
 }
 
 }
+
+
+/* ENTER KEY */
 
 document
 .getElementById("ipInput")
-.addEventListener("keydown",function(event){
+.addEventListener(
+"keydown",
+function(event){
 
-if(event.key === "Enter"){
+if(event.key==="Enter"){
 lookupIP();
 }
 
 });
+
+
+getLocalIP();
 
 </script>
 
