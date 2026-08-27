@@ -10,7 +10,7 @@ def get_ip():
     try:
 
         response = requests.get(
-            "https://ipapi.co/json/",
+            "https://ipwho.is//json/",
             timeout=10
         )
 
